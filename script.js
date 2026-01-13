@@ -42,4 +42,17 @@ const game = (function () {
       gameOver();
     }
   }
+
+  function checkCurrentRow(marker, row) {
+    let positives = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (gameboard[row][i] === marker) {
+        positives++;
+      }
+    }
+    if (positives === 3) {
+      gameOver();
+    }
+  }
 })();
