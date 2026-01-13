@@ -123,13 +123,28 @@ const game = (function () {
     return board;
   })();
 
-  function displayMarker(row, col, marker) {}
+  function displayMarker(row, col, marker) {
+    switch (marker) {
+      case "x":
+        const crossImgElement = document.createElement("img");
+        crossImgElement.setAttribute("src", "./assets/cross-marker.png");
+        htmlGameboard[row][col].appendChild(crossImgElement);
+        break;
+      case "o":
+        const circleImgElement = document.createElement("img");
+        circleImgElement.setAttribute("src", "./assets/circle-marker.png");
+        htmlGameboard[row][col].appendChild(circleImgElement);
+      default:
+        break;
+    }
+  }
 
   return {
     player1,
     player2,
     gameboard,
     htmlGameboard,
+    displayMarker,
   };
 })();
 

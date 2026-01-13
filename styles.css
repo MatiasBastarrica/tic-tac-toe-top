@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.table {
+  margin-top: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  margin-inline: auto;
+}
+
+.cell {
+  background-color: burlywood;
+  width: 200px;
+  height: 200px;
+  border: 2px solid brown;
+}
+
+.cell img {
+  width: 200px;
+  height: 200px;
+}
