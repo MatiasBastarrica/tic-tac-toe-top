@@ -103,10 +103,33 @@ const game = (function () {
     return console.log(`The WINNER is ${player.toUpperCase()}`);
   }
 
+  const htmlGameboard = (function () {
+    const cells = document.querySelectorAll(".cell");
+    const board = [];
+
+    for (let k = 0; k < cells.length; k++) {
+      let cellCount = 0;
+      for (let i = 0; i < 3; i++) {
+        let column = [];
+
+        for (let j = 0; j < 3; j++) {
+          column[j] = cells[cellCount];
+          cellCount++;
+        }
+        board[i] = column;
+      }
+    }
+
+    return board;
+  })();
+
+  function displayMarker(row, col, marker) {}
+
   return {
     player1,
     player2,
     gameboard,
+    htmlGameboard,
   };
 })();
 
