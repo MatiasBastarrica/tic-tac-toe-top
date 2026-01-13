@@ -55,4 +55,25 @@ const game = (function () {
       gameOver();
     }
   }
+
+  function checkDiagonals(marker) {
+    let positives = 0;
+
+    if (
+      gameboard[0][0] === marker &&
+      gameboard[1][1] === marker &&
+      gameboard[2][2] === marker
+    ) {
+      positives = 3;
+    } else if (
+      gameboard[0][2] === marker &&
+      gameboard[1][1] === marker &&
+      gameboard[2][0] === marker
+    ) {
+      positives = 3;
+    }
+    if (positives === 3) {
+      gameOver();
+    }
+  }
 })();
