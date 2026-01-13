@@ -29,4 +29,17 @@ const game = (function () {
   function incrementTurn() {
     turns++;
   }
+
+  function checkCurrentCol(marker, col) {
+    let positives = 0;
+
+    for (let i = 0; i < 3; i++) {
+      if (gameboard[i][col] === marker) {
+        positives++;
+      }
+    }
+    if (positives === 3) {
+      gameOver();
+    }
+  }
 })();
