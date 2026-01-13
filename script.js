@@ -20,4 +20,7 @@ const game = (function () {
       getMarker,
     };
   }
+
+  const player1 = Player("x");
+  const player2 = Player("o");
 })();
