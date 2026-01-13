@@ -84,4 +84,12 @@ const game = (function () {
       checkDiagonals(marker);
     }
   }
+
+  function setMarker(marker, row, col) {
+    if (gameboard[row][col] === undefined) {
+      gameboard[row][col] = marker;
+      incrementTurn();
+      checkStatus(marker, row, col);
+    }
+  }
 })();
