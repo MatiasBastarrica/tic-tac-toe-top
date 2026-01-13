@@ -11,18 +11,32 @@ const game = (function () {
     return board;
   })();
 
-  function Player(marker) {
+  function Player(marker, name) {
     function getMarker() {
       return marker;
     }
 
+    function getName() {
+      return name;
+    }
+
+    function setMarker(marker, row, col) {
+      if (gameboard[row][col] === undefined) {
+        gameboard[row][col] = marker;
+        incrementTurn();
+        checkStatus(marker, row, col, name);
+      }
+    }
+
     return {
       getMarker,
+      setMarker,
+      getName,
     };
   }
 
-  const player1 = Player("x");
-  const player2 = Player("o");
+  const player1 = Player("x", "player 1");
+  const player2 = Player("o", "player 2");
 
   let turns = 0;
 
@@ -30,7 +44,7 @@ const game = (function () {
     turns++;
   }
 
-  function checkCurrentCol(marker, col) {
+  function checkCurrentCol(marker, col, player) {
     let positives = 0;
 
     for (let i = 0; i < 3; i++) {
@@ -39,11 +53,11 @@ const game = (function () {
       }
     }
     if (positives === 3) {
-      gameOver();
+      gameOver(player);
     }
   }
 
-  function checkCurrentRow(marker, row) {
+  function checkCurrentRow(marker, row, player) {
     let positives = 0;
 
     for (let i = 0; i < 3; i++) {
@@ -52,11 +66,11 @@ const game = (function () {
       }
     }
     if (positives === 3) {
-      gameOver();
+      gameOver(player);
     }
   }
 
-  function checkDiagonals(marker) {
+  function checkDiagonals(marker, player) {
     let positives = 0;
 
     if (
@@ -73,40 +87,31 @@ const game = (function () {
       positives = 3;
     }
     if (positives === 3) {
-      gameOver();
+      gameOver(player);
     }
   }
 
-  function checkStatus(marker, row, col) {
+  function checkStatus(marker, row, col, player) {
     if (turns > 4) {
-      checkCurrentCol(marker, col);
-      checkCurrentRow(marker, row);
-      checkDiagonals(marker);
+      checkCurrentCol(marker, col, player);
+      checkCurrentRow(marker, row, player);
+      checkDiagonals(marker, player);
     }
   }
 
-  function setMarker(marker, row, col) {
-    if (gameboard[row][col] === undefined) {
-      gameboard[row][col] = marker;
-      incrementTurn();
-      checkStatus(marker, row, col);
-    }
-  }
-
-  function gameOver() {
-    return console.log("You win!!!");
+  function gameOver(player) {
+    return console.log(`The WINNER is ${player.toUpperCase()}`);
   }
 
   return {
-    setMarker,
     player1,
     player2,
     gameboard,
   };
 })();
 
-game.setMarker("x", 0, 0);
-game.setMarker("o", 1, 0);
-game.setMarker("x", 0, 1);
-game.setMarker("o", 2, 0);
-game.setMarker("x", 0, 2);
+game.player2.setMarker("x", 0, 0);
+game.player1.setMarker("o", 1, 0);
+game.player2.setMarker("x", 0, 1);
+game.player1.setMarker("o", 2, 0);
+game.player2.setMarker("x", 0, 2);
