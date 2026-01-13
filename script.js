@@ -1,0 +1,13 @@
+const game = (function () {
+  const gameboard = (function () {
+    const board = [];
+    for (let i = 0; i < 3; i++) {
+      let column = [];
+      for (let j = 0; j < 3; j++) {
+        column[j] = undefined;
+      }
+      board[i] = column;
+    }
+    return board;
+  })();
+})();
