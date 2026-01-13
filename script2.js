@@ -110,3 +110,4 @@ game.setMarker("o", 1, 0);
 game.setMarker("x", 0, 1);
 game.setMarker("o", 2, 0);
 game.setMarker("x", 0, 2);
+// game.gameboard;
