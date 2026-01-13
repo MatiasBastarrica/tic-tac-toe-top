@@ -92,4 +92,8 @@ const game = (function () {
       checkStatus(marker, row, col);
     }
   }
+
+  function gameOver() {
+    return console.log("You win!!!");
+  }
 })();
