@@ -23,4 +23,10 @@ const game = (function () {
 
   const player1 = Player("x");
   const player2 = Player("o");
+
+  let turns = 0;
+
+  function incrementTurn() {
+    turns++;
+  }
 })();
