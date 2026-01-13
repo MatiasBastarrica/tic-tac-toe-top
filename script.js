@@ -10,4 +10,14 @@ const game = (function () {
     }
     return board;
   })();
+
+  function Player(marker) {
+    function getMarker() {
+      return marker;
+    }
+
+    return {
+      getMarker,
+    };
+  }
 })();
