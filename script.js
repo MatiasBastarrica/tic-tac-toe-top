@@ -76,4 +76,12 @@ const game = (function () {
       gameOver();
     }
   }
+
+  function checkStatus(marker, row, col) {
+    if (turns > 4) {
+      checkCurrentCol(marker, col);
+      checkCurrentRow(marker, row);
+      checkDiagonals(marker);
+    }
+  }
 })();
