@@ -96,4 +96,11 @@ const game = (function () {
   function gameOver() {
     return console.log("You win!!!");
   }
+
+  return {
+    setMarker,
+    player1,
+    player2,
+    gameboard,
+  };
 })();
