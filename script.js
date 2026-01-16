@@ -23,6 +23,7 @@ const game = (function () {
     function setMarker(marker, row, col) {
       if (gameboard[row][col] === undefined) {
         gameboard[row][col] = marker;
+        displayMarker(row, col, marker);
         incrementTurn();
         checkStatus(marker, row, col, name);
       }
@@ -105,6 +106,51 @@ const game = (function () {
 
   const htmlGameboard = (function () {
     const cells = document.querySelectorAll(".cell");
+
+    function getCellRow(cellIndex) {
+      if (-1 < cellIndex < 3) {
+        return 0;
+      } else if (2 < cellIndex < 6) {
+        return 1;
+      } else {
+        return 2;
+      }
+    }
+
+    function getCellCol(cellIndex) {
+      switch (cellIndex) {
+        case 0:
+        case 3:
+        case 6:
+          return 0;
+          break;
+        case 1:
+        case 4:
+        case 7:
+          return 1;
+          break;
+        case 2:
+        case 5:
+        case 8:
+          return 2;
+          break;
+        default:
+          break;
+      }
+    }
+
+    cells.forEach(function (cell, index) {
+      cell.addEventListener("click", function (e) {
+        let row = getCellRow(index);
+        let col = getCellCol(index);
+        if (turns % 2 === 0) {
+          game.player1.setMarker(player1.getMarker(), row, col);
+        } else {
+          game.player2.setMarker(player2.getMarker(), row, col);
+        }
+      });
+    });
+
     const board = [];
 
     for (let k = 0; k < cells.length; k++) {
@@ -148,8 +194,8 @@ const game = (function () {
   };
 })();
 
-game.player2.setMarker("x", 0, 0);
-game.player1.setMarker("o", 1, 0);
-game.player2.setMarker("x", 0, 1);
-game.player1.setMarker("o", 2, 0);
-game.player2.setMarker("x", 0, 2);
+// game.player2.setMarker("x", 0, 0);
+// game.player1.setMarker("o", 1, 0);
+// game.player2.setMarker("x", 0, 1);
+// game.player1.setMarker("o", 2, 0);
+// game.player2.setMarker("x", 0, 2);
