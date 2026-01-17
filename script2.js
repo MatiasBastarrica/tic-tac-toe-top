@@ -171,18 +171,6 @@ const game = function () {
       }
     }
 
-    // function clearTables() {
-    //   gameboard.forEach(function (row) {
-    //     row.forEach(function (col) {
-    //       col = undefined;
-    //     });
-    //   });
-
-    //   htmlGameboard.forEach(function (cell) {
-    //     cell.removeChild(cell.firstChild);
-    //   });
-    // }
-
     return board;
   })();
 
@@ -240,11 +228,3 @@ const game = function () {
     }
   });
 })();
-
-// let game1 = game();
-
-// game.player2.setMarker("x", 0, 0);
-// game.player1.setMarker("o", 1, 0);
-// game.player2.setMarker("x", 0, 1);
-// game.player1.setMarker("o", 2, 0);
-// game.player2.setMarker("x", 0, 2);
