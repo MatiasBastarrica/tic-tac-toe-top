@@ -1,4 +1,9 @@
-const game = (function () {
+const startRestartBtn = document.querySelector(".start-restart-btn");
+const player1Btn = document.querySelector(".player-1-btn");
+const player2Btn = document.querySelector(".player-2-btn");
+const resultsDisplay = document.querySelector(".results");
+
+const game = function () {
   const gameboard = (function () {
     const board = [];
     for (let i = 0; i < 3; i++) {
@@ -166,8 +171,36 @@ const game = (function () {
       }
     }
 
+    // function clearTables() {
+    //   gameboard.forEach(function (row) {
+    //     row.forEach(function (col) {
+    //       col = undefined;
+    //     });
+    //   });
+
+    //   htmlGameboard.forEach(function (cell) {
+    //     cell.removeChild(cell.firstChild);
+    //   });
+    // }
+
     return board;
   })();
+
+  function clearTables() {
+    gameboard.forEach(function (rowCells, row) {
+      rowCells.forEach(function (col, colIndex) {
+        gameboard[row][colIndex] = undefined;
+      });
+    });
+
+    htmlGameboard.forEach(function (rowCells) {
+      rowCells.forEach(function (cell) {
+        if (cell.firstChild) {
+          cell.removeChild(cell.firstChild);
+        }
+      });
+    });
+  }
 
   function displayMarker(row, col, marker) {
     switch (marker) {
@@ -191,8 +224,24 @@ const game = (function () {
     gameboard,
     htmlGameboard,
     displayMarker,
+    clearTables,
   };
+};
+
+(function () {
+  let restart = false;
+
+  startRestartBtn.addEventListener("click", function () {
+    let startGame = game();
+    if (!restart) {
+      restart = true;
+    } else {
+      startGame.clearTables();
+    }
+  });
 })();
+
+// let game1 = game();
 
 // game.player2.setMarker("x", 0, 0);
 // game.player1.setMarker("o", 1, 0);
