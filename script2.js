@@ -26,7 +26,7 @@ const game = function () {
     }
 
     function setMarker(marker, row, col) {
-      if (gameboard[row][col] === undefined) {
+      if (gameboard[row][col] === undefined && !finished) {
         gameboard[row][col] = marker;
         displayMarker(row, col, marker);
         incrementTurn();
@@ -45,6 +45,7 @@ const game = function () {
   const player2 = Player("o", "player 2");
 
   let turns = 0;
+  let finished = false;
 
   function incrementTurn() {
     turns++;
@@ -106,6 +107,7 @@ const game = function () {
   }
 
   function gameOver(player) {
+    finished = true;
     return console.log(`The WINNER is ${player.toUpperCase()}`);
   }
 
