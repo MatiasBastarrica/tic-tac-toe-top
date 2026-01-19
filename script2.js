@@ -1,4 +1,6 @@
 const startRestartBtn = document.querySelector(".start-restart-btn");
+const player1Display = document.querySelector(".player-1__name");
+const player2Display = document.querySelector(".player-2__name");
 const player1Btn = document.querySelector(".player-1-btn");
 const player2Btn = document.querySelector(".player-2-btn");
 const resultsDisplay = document.querySelector(".results");
@@ -25,8 +27,12 @@ const game = function () {
       return name;
     }
 
+    function changeName(newName) {
+      name = newName;
+    }
+
     function setMarker(marker, row, col) {
-      if (gameboard[row][col] === undefined && !finished) {
+      if (gameboard[row][col] === undefined && !finished && started) {
         gameboard[row][col] = marker;
         displayMarker(row, col, marker);
         incrementTurn();
@@ -38,14 +44,34 @@ const game = function () {
       getMarker,
       setMarker,
       getName,
+      changeName,
     };
   }
 
-  const player1 = Player("x", "player 1");
-  const player2 = Player("o", "player 2");
+  const player1 = Player("x", player1Display.textContent);
+  const player2 = Player("o", player2Display.textContent);
 
   let turns = 0;
   let finished = false;
+  let started = false;
+
+  function startOver() {
+    finished = false;
+    turns = 0;
+    gameboard.forEach(function (rowCells, row) {
+      rowCells.forEach(function (col, colIndex) {
+        gameboard[row][colIndex] = undefined;
+      });
+    });
+
+    htmlGameboard.forEach(function (rowCells) {
+      rowCells.forEach(function (cell) {
+        if (cell.firstChild) {
+          cell.removeChild(cell.firstChild);
+        }
+      });
+    });
+  }
 
   function incrementTurn() {
     turns++;
@@ -61,6 +87,9 @@ const game = function () {
     }
     if (positives === 3) {
       gameOver(player);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -74,6 +103,9 @@ const game = function () {
     }
     if (positives === 3) {
       gameOver(player);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -95,20 +127,29 @@ const game = function () {
     }
     if (positives === 3) {
       gameOver(player);
+      return true;
+    } else {
+      return false;
     }
   }
 
   function checkStatus(marker, row, col, player) {
     if (turns > 4) {
-      checkCurrentCol(marker, col, player);
-      checkCurrentRow(marker, row, player);
-      checkDiagonals(marker, player);
+      if (checkCurrentCol(marker, col, player)) {
+        return;
+      } else if (checkCurrentRow(marker, row, player)) {
+        return;
+      } else if (checkDiagonals(marker, player)) {
+        return;
+      }
     }
   }
 
   function gameOver(player) {
     finished = true;
-    return console.log(`The WINNER is ${player.toUpperCase()}`);
+    // playerBtns.removeListeners();
+    console.log(`The WINNER is ${player.toUpperCase()}`);
+    return;
   }
 
   const htmlGameboard = (function () {
@@ -176,22 +217,6 @@ const game = function () {
     return board;
   })();
 
-  function clearTables() {
-    gameboard.forEach(function (rowCells, row) {
-      rowCells.forEach(function (col, colIndex) {
-        gameboard[row][colIndex] = undefined;
-      });
-    });
-
-    htmlGameboard.forEach(function (rowCells) {
-      rowCells.forEach(function (cell) {
-        if (cell.firstChild) {
-          cell.removeChild(cell.firstChild);
-        }
-      });
-    });
-  }
-
   function displayMarker(row, col, marker) {
     switch (marker) {
       case "x":
@@ -208,25 +233,85 @@ const game = function () {
     }
   }
 
+  const playerBtns = (function () {
+    function handleRename(e) {
+      if (e.target.classList.contains("player-1-btn")) {
+        let newName = prompt(`Write a name for ${player1.getName()}`);
+        player1.changeName(newName);
+        player1Display.textContent = newName;
+      } else if (e.target.classList.contains("player-2-btn")) {
+        let newName = prompt(`Write a name for ${player1.getName()}`);
+        player2.changeName(newName);
+        player2Display.textContent = newName;
+      }
+    }
+    player1Btn.addEventListener("click", handleRename);
+
+    player2Btn.addEventListener("click", handleRename);
+
+    // function removeListeners() {
+    //   player1Btn.removeEventListener("click", handleRename);
+    //   player2Btn.removeEventListener("click", handleRename);
+    // }
+
+    // return {
+    //   removeListeners,
+    // };
+  })();
+
+  function start() {
+    started = true;
+  }
+
+  // function clearTables() {
+  //   gameboard.forEach(function (rowCells, row) {
+  //     rowCells.forEach(function (col, colIndex) {
+  //       gameboard[row][colIndex] = undefined;
+  //     });
+  //   });
+
+  //   htmlGameboard.forEach(function (rowCells) {
+  //     rowCells.forEach(function (cell) {
+  //       if (cell.firstChild) {
+  //         cell.removeChild(cell.firstChild);
+  //       }
+  //     });
+  //   });
+  // }
+
   return {
     player1,
     player2,
     gameboard,
     htmlGameboard,
     displayMarker,
-    clearTables,
+    playerBtns,
+    start,
+    // clearTables,
+    startOver,
   };
 };
 
 (function () {
-  let restart = false;
+  let games = 0;
+  // function emptyBoard() {
+  //   const cells = document.querySelectorAll(".cell");
+  //   cells.forEach((cell) => {
+  //     if (cell.firstChild) {
+  //       cell.removeChild(cell.firstChild);
+  //     }
+  //   });
+  // }
+
+  let startGame = game();
 
   startRestartBtn.addEventListener("click", function () {
-    let startGame = game();
-    if (!restart) {
-      restart = true;
+    if (games === 0) {
+      startGame.start();
+      games++;
     } else {
-      startGame.clearTables();
+      // startGame.clearTables();
+      startGame.startOver();
     }
   });
 })();
