@@ -147,7 +147,6 @@ const game = function () {
 
   function gameOver(player) {
     finished = true;
-    // playerBtns.removeListeners();
     resultsDisplay.textContent = `The WINNER is ${player.toUpperCase()}`;
   }
 
@@ -247,36 +246,11 @@ const game = function () {
     player1Btn.addEventListener("click", handleRename);
 
     player2Btn.addEventListener("click", handleRename);
-
-    // function removeListeners() {
-    //   player1Btn.removeEventListener("click", handleRename);
-    //   player2Btn.removeEventListener("click", handleRename);
-    // }
-
-    // return {
-    //   removeListeners,
-    // };
   })();
 
   function start() {
     started = true;
   }
-
-  // function clearTables() {
-  //   gameboard.forEach(function (rowCells, row) {
-  //     rowCells.forEach(function (col, colIndex) {
-  //       gameboard[row][colIndex] = undefined;
-  //     });
-  //   });
-
-  //   htmlGameboard.forEach(function (rowCells) {
-  //     rowCells.forEach(function (cell) {
-  //       if (cell.firstChild) {
-  //         cell.removeChild(cell.firstChild);
-  //       }
-  //     });
-  //   });
-  // }
 
   return {
     player1,
@@ -293,14 +267,6 @@ const game = function () {
 
 (function () {
   let games = 0;
-  // function emptyBoard() {
-  //   const cells = document.querySelectorAll(".cell");
-  //   cells.forEach((cell) => {
-  //     if (cell.firstChild) {
-  //       cell.removeChild(cell.firstChild);
-  //     }
-  //   });
-  // }
 
   let startGame = game();
 
@@ -309,7 +275,6 @@ const game = function () {
       startGame.start();
       games++;
     } else {
-      // startGame.clearTables();
       startGame.startOver();
     }
   });
