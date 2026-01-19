@@ -148,8 +148,7 @@ const game = function () {
   function gameOver(player) {
     finished = true;
     // playerBtns.removeListeners();
-    console.log(`The WINNER is ${player.toUpperCase()}`);
-    return;
+    resultsDisplay.textContent = `The WINNER is ${player.toUpperCase()}`;
   }
 
   const htmlGameboard = (function () {
