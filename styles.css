@@ -69,3 +69,9 @@ h1 {
   display: block;
   margin-inline: auto;
 }
+
+.results {
+  font-size: 1.275rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}

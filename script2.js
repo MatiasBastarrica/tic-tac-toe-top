@@ -260,7 +260,6 @@ const game = function () {
     displayMarker,
     playerBtns,
     start,
-    // clearTables,
     startOver,
   };
 };
