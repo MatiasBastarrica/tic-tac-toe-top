@@ -275,6 +275,7 @@ const game = function () {
       games++;
     } else {
       startGame.startOver();
+      resultsDisplay.textContent = "";
     }
   });
 })();
